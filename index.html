@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mood Optimizer & Bedtime Assistant ✨</title>
+  <!-- Google Fonts: Outfit (main) and Fira Code (terminal/code) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Outfit:wght@300;400;600;800&display=swap"
+    rel="stylesheet">
+  <!-- Stylesheet & Script -->
+  <link rel="stylesheet" href="style.css?v=2">
+  <script src="script.js?v=2" defer></script>
+</head>
+
+<body>
+  <!-- Canvas for Starry Background and Perfume Spritz Particles -->
+  <div class="stars-container" id="starsContainer"></div>
+  <canvas id="particleCanvas"></canvas>
+
+  <div class="container">
+    <!-- HERO DIAGNOSTIC HEADER -->
+    <header class="glass-card header-card">
+      <div class="terminal-bar">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="terminal-title">mood-scanner.sh</span>
+      </div>
+      <div class="terminal-body">
+        <p class="code-line text-dim">&gt; ssh guest@mood-detector.local</p>
+        <p class="code-line text-dim">&gt; running moodcheck --target="Teman Terbaik" --time="Night"</p>
+        <p class="code-line text-warning font-bold flash">&gt; [WARNING] BAD_MOOD_DETECTED: Overload Pikiran detected.
+        </p>
+        <p class="code-line text-accent">&gt; Solusi: Jalankan kompilasi kebahagiaan segera!</p>
+      </div>
+    </header>
+
+    <!-- SECTION 1: THE TENGIL DECISION -->
+    <section class="glass-card section-card text-center" id="decisionSection">
+      <h2 class="title-main">Halo Kamu! 🥺</h2>
+      <p class="subtitle">Laporan sistem mendeteksi kamu lagi bad mood malam ini. Mau kita beresin sekarang atau mau
+        dipelihara bad mood-nya?</p>
+
+      <div class="button-group-runaway" id="btnGroup">
+        <!-- The runaway button -->
+        <button class="btn btn-secondary text-tengil" id="btnBad">Tetep Mau Bad Mood 😒</button>
+        <!-- The success button -->
+        <button class="btn btn-primary" id="btnGood">Beresin Dong! 🚀</button>
+      </div>
+    </section>
+
+    <!-- THE MOOD BOOSTER HUB (Initially hidden, revealed with CSS transitions) -->
+    <main class="main-hub hidden" id="mainHub">
+
+      <!-- GRID LAYOUT FOR THE BOOSTERS -->
+      <div class="booster-grid">
+
+        <!-- CARD 1: VIRTUAL CAFE -->
+        <div class="glass-card card-item">
+          <div class="card-header">
+            <div class="card-icon">🍵</div>
+            <h3>Virtual Brew Bar</h3>
+          </div>
+          <p class="card-desc">Seduh asupan penenang malam hari. Pilih minuman kesukaanmu dan lihat proses pembuatannya!
+          </p>
+
+          <div class="brew-actions">
+            <button class="btn btn-outline btn-tuku" id="btnTuku">Brew Kopi Tuku ☕</button>
+            <button class="btn btn-outline btn-matcha" id="btnMatcha">Whisk Matcha Latte 🍵</button>
+          </div>
+
+          <!-- Cup animation container -->
+          <div class="cup-container">
+            <div class="cup" id="brewCup">
+              <div class="cup-handle"></div>
+              <div class="cup-liquid" id="cupLiquid"></div>
+              <div class="cup-foam" id="cupFoam"></div>
+            </div>
+            <div class="steam-container" id="steamContainer">
+              <span class="steam"></span>
+              <span class="steam"></span>
+              <span class="steam"></span>
+            </div>
+          </div>
+
+          <div class="terminal-bar small-bar mt-1">
+            <span class="terminal-title">barista-log.txt</span>
+          </div>
+          <div class="terminal-body small-body text-center" id="baristaLog">
+            Silakan pilih minuman di atas untuk menyeduh kebahagiaan...
+          </div>
+        </div>
+
+        <!-- CARD 2: MYKONOS PERFUME SPRITZ -->
+        <div class="glass-card card-item">
+          <div class="card-header">
+            <div class="card-icon">✨</div>
+            <h3>Mykonos Spritzer</h3>
+          </div>
+          <p class="card-desc">Semprot virtual parfum Mykonos kesukaanmu untuk menambah ketenangan aromatik sebelum
+            tidur.</p>
+
+          <div class="perfume-selectors">
+            <button class="btn btn-perfume active" data-scent="coconut" data-color="#fef08a">Coconut Dreams 🥥</button>
+            <button class="btn btn-perfume" data-scent="aphrodite" data-color="#fca5a5">Aphrodite 🍓</button>
+            <button class="btn btn-perfume" data-scent="senja" data-color="#fdba74">Senja & Coffee 🌇</button>
+          </div>
+
+          <!-- Interactive Perfume Spray Area -->
+          <div class="perfume-display">
+            <div class="perfume-bottle-wrapper" id="perfumeBottle">
+              <!-- Spray Bottle SVG -->
+              <svg class="perfume-svg" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- Cap -->
+                <rect x="42" y="10" width="16" height="15" rx="3" fill="#ffffff" stroke="var(--accent-glow)"
+                  stroke-width="2" />
+                <path d="M 45 25 L 55 25 L 55 30 L 45 30 Z" fill="#888" />
+                <!-- Spray Nozzle -->
+                <circle cx="50" cy="18" r="2" fill="#222" />
+                <!-- Bottle Body -->
+                <rect x="25" y="30" width="50" height="80" rx="10" fill="rgba(255,255,255,0.15)" stroke="#ffffff"
+                  stroke-width="2" class="bottle-body" />
+                <rect x="30" y="35" width="40" height="70" rx="6" fill="url(#bottleGradient)" opacity="0.6" />
+                <!-- Inner liquid tube -->
+                <line x1="50" y1="30" x2="50" y2="105" stroke="#fff" stroke-dasharray="2,2" stroke-width="2" />
+                <!-- Gradient definition -->
+                <defs>
+                  <linearGradient id="bottleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#a78bfa" id="gradStop1" />
+                    <stop offset="100%" stop-color="#ec4899" id="gradStop2" />
+                  </linearGradient>
+                </defs>
+                <!-- Label -->
+                <rect x="32" y="55" width="36" height="25" rx="3" fill="#ffffff" opacity="0.9" />
+                <text x="50" y="71" font-family="'Outfit', sans-serif" font-size="6" font-weight="bold" fill="#1e1b4b"
+                  text-anchor="middle" id="perfumeLabel">MYKONOS</text>
+              </svg>
+            </div>
+            <div class="spray-tip">Klik botol untuk menyemprotkan keharuman! 👆</div>
+          </div>
+
+          <div class="scent-description text-center mt-1" id="scentStatus">
+            Pilih varian aroma di atas, lalu semprotkan botol parfum.
+          </div>
+        </div>
+
+        <!-- CARD 3: BEDTIME MOTIVATION TAROT -->
+        <div class="glass-card card-item span-two-desktop">
+          <div class="card-header">
+            <div class="card-icon">🃏</div>
+            <h3>Bedtime Motivation Tarot</h3>
+          </div>
+          <p class="card-desc">Tarik kartu motivasi malam ini untuk menenangkan pikiranmu dari lelahnya ngoding dan bad
+            mood.</p>
+
+          <div class="tarot-game-container">
+            <!-- Stacked deck of cards -->
+            <div class="card-deck" id="cardDeck" title="Klik dek untuk mengambil kartu">
+              <div class="deck-card card-back"></div>
+              <div class="deck-card card-back"></div>
+              <div class="deck-card card-back"></div>
+            </div>
+
+            <!-- Card display for flipped card -->
+            <div class="card-display-area">
+              <div class="flip-card" id="flipCard">
+                <div class="flip-card-inner">
+                  <div class="flip-card-front">
+                    <span>✨ Ambil Kartu ✨</span>
+                  </div>
+                  <div class="flip-card-back">
+                    <p class="quote-text" id="quoteText">Minyak wangi Mykonos-mu wangi, masa depanmu juga bakal sewangi
+                      itu. Jangan overthink, tidur gih! 🌸✨</p>
+                    <p class="quote-author">~ System Guard 🛡️</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center mt-1">
+            <button class="btn btn-outline" id="btnDrawCard">Tarik Kartu Baru 🃏</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CARD 3: CODE DEBUGGER & GIT RELEASING -->
+      <section class="glass-card section-card mt-2">
+        <div class="card-header">
+          <div class="card-icon">💻</div>
+          <h3>Coder's Night Debugger</h3>
+        </div>
+        <p class="card-desc">Aplikasi mendeteksi error pada variable kehidupanmu. Mari jalankan perbaikan manual sebelum
+          deploy ke server tidur.</p>
+
+        <!-- Code Editor Mockup -->
+        <div class="code-editor">
+          <div class="editor-header">
+            <span class="file-name">🔧 mood-optimizer.js</span>
+            <span class="lang-badge">javascript</span>
+          </div>
+          <div class="editor-body">
+            <pre><code><span class="code-keyword">import</span> { <span class="code-variable">friend</span> } <span class="code-keyword">from</span> <span class="code-string">'./workspace'</span>;
+<span class="code-keyword">import</span> { <span class="code-variable">sleepWell</span> } <span class="code-keyword">from</span> <span class="code-string">'./bedtime-routines'</span>;
+
+<span class="code-comment">// TODO: Perbaiki mood jelek malam ini</span>
+<span class="code-keyword">let</span> <span class="code-variable">currentMood</span> = <span class="code-variable">friend</span>.<span class="code-property">getMoodStatus</span>();
+
+<span class="code-keyword">if</span> (<span class="code-variable">currentMood</span> === <span class="code-string">'bad'</span>) {
+    <span class="code-variable">friend</span>.<span class="code-property">brewDrink</span>({ type: <span class="code-string" id="codeDrinkType">'matcha'</span> });
+    <span class="code-variable">friend</span>.<span class="code-property">applyAroma</span>({ brand: <span class="code-string" id="codeAromaType">'Mykonos'</span> });
+    
+    <span class="code-comment">// Force state optimization</span>
+    <span class="code-variable">friend</span>.<span class="code-property">mood</span> = <span class="code-string">'happy'</span>;
+    <span class="code-variable">friend</span>.<span class="code-property">smile</span>();
+    
+    <span class="code-variable">sleepWell</span>({ screenTime: <span class="code-number">0</span>, comfyBed: <span class="code-number">1</span> });
+}</code></pre>
+          </div>
+        </div>
+
+        <div class="debugger-actions text-center mt-1">
+          <button class="btn btn-primary" id="btnRunCode">Run npm run fix-mood --force 🚀</button>
+        </div>
+
+        <!-- Terminal compilation logs -->
+        <div class="terminal-bar small-bar mt-1">
+          <span class="terminal-title">terminal - npm run dev</span>
+        </div>
+        <div class="terminal-body small-body terminal-console" id="terminalConsole">
+          <p class="console-line text-dim">[idle] Awaiting compilation... Click "Run" to fix current state.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- FINAL BEDTIME MODAL CARD (Fades in over everything) -->
+    <div class="bedtime-modal-backdrop hidden" id="bedtimeModal">
+      <div class="glass-card bedtime-card text-center">
+        <div class="moon-icon">🌙</div>
+        <h2 class="title-bedtime">Kompilasi Sukses! 🏆</h2>
+        <p class="bedtime-greeting">Bad mood berhasil dideploy ke Recycle Bin.</p>
+
+        <div class="bedtime-letter">
+          <p>Hai! Makasih ya udah uda di buka. Semoga sedikit senyum-senyum.</p>
+          <p>Eca ga mau nyemangatin, takut jadi semangat banget.</p>
+          <p>Apapun itu luapin aja, nangis, teriak, tapi jangan di pendem ya.</p>
+          <p>Sekarang udah malam. Laptopnya di-shutdown dulu, kodingannya di-commit dulu, tumpukan bad mood-nya
+            ditinggal dulu ya. Kasur dan bantal udah nungguin kamu.</p>
+          <p>Tidur yang nyenyak, mimpi indah. Semoga besok bangun dengan mood yang super segar ! 🛌✨😴</p>
+          <p>Tertanda : Antigraphity</p>
+        </div>
+
+        <div class="bedtime-controls">
+          <button class="btn btn-outline" id="btnToggleMusic">🔊 Nyalakan Lagu Pengantar Tidur (Lofi Synth)</button>
+          <button class="btn btn-primary mt-1" id="btnCloseModal">Tutup & Tidur 💤</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-text text-center text-dim mt-2">
+      Dibuat khusus untuk menghibur kamu yang lagi badmood | Tekan F12 buat debug kehidupan
+    </footer>
+  </div>
+</body>
+
+</html>
